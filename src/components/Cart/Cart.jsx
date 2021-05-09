@@ -1,23 +1,24 @@
 import React from 'react'
 import { Typography, Grid, Container, Button } from '@material-ui/core';
+import CartItem from './CartItem/CartItem'
 import useStyles from './styles';
+import { Link } from 'react-router-dom'
 const Cart = ({ cart }) => {
     const classes = useStyles();
 
     const EmptyCart = () => (
-        <Typography variant="subtitle1">You have no items in your cart, start adding some!</Typography>
+        <Typography variant="subtitle1">You have no items in your cart,
+            <Link to="/" className={classes.link}>start adding some</Link>!</Typography>
     )
 
     const FilledCart = () => (
         <>
             <Grid container spacing={3}>
-                {
-                    cart.line_items.map((item) => (
-                        <Grid item xs={12} sm={4} key={item.id}>
-                            <div>{item.name}</div>
-                        </Grid>
-                    ))
-                }
+                {cart.line_items.map((lineItem) => (
+                    <Grid item xs={12} sm={4} key={lineItem.id}>
+                        <CartItem item={lineItem} />
+                    </Grid>
+                ))}
             </Grid>
             <div className={classes.cartDetails}>
                 <Typography variant="h4">
@@ -34,10 +35,10 @@ const Cart = ({ cart }) => {
     if (!cart.line_items) return 'Loading...';
 
     return (
-        <Container>
+        <Container className={classes.root}>
             <div className={classes.toolbar} />
-            <Typography className={classes.title} variant="h3">Your Shopping Cart</Typography>
-            { !cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+            <Typography className={classes.title} variant="h4" gutterBottom>Your Shopping Cart</Typography>
+            {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
         </Container>
     )
 }
