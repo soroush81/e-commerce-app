@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
     },
     cartDetails: {
         display: 'flex',
-        marginTop: '10%',
+        marginTop: '3%',
         width: '100%',
         justifyContent: 'space-between',
     },
